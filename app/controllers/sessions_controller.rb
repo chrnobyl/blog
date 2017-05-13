@@ -5,6 +5,8 @@ class SessionsController < ApplicationController
   end
 
   def create
+    byebug
+    @session = User.find_by(params[:user][:username])
   end
 
 
