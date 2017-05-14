@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   resources :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  get '/', to: 'sessions#new', as: 'login'
+  get '/', to: 'sessions#new', as: 'new_session'
+  post '/', to: 'sessions#create', as: 'login'
 end
