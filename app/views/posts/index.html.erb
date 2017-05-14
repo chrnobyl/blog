@@ -1,0 +1,10 @@
+<% @posts.each do |post| %>
+  <h1><%= post.title %></h1>
+  by: <%= post.user.username %> at <%= post.created_at.strftime("%m:%M%p on %A, %b %e, %Y") %><br/><br/>
+  <%= post.content %><br/>
+    <% post.comments.each do |c| %>
+    <h1>Comments:</h1><br/>
+    <%= c.content %>
+    <% end %>
+
+<% end %>

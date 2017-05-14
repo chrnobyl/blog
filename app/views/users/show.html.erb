@@ -1,0 +1,8 @@
+User: <%= @user.username %><br/>
+Email: <%= @user.email %><br/>
+Posts: <% @user.posts.each do |post| %>
+<%= post.title %><br/>
+<%= post.content %><br/>
+<% end %>
+
+<%= link_to "Make a new post", new_post_path %>
