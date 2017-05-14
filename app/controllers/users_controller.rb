@@ -9,12 +9,24 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create(user_params)
-
+    if params[:password] == params[:password_confirmation]
+      @user = User.new(user_params)
+    else
+      flash[:notice] = "Please enter a valid name, password, and email"
+      redirect_to login_path
+    end
+    if !@user.nil?
+      @user.save
+      session[:user_id] = @user.id
+      redirect_to user_path(@user)
+    else
+      redirect_to login_path
+    end
   end
 
   def show
-
+    # byebug
+    @user = User.find(params[:id])
   end
 
   def edit
@@ -32,7 +44,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user)permit(:name, :password, :email)
+      params.require(:user).permit(:username, :password, :email)
 
     end
 end
