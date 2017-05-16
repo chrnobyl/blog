@@ -1,2 +1,8 @@
-<%= @post.title %><br/>
+<h1><%= @post.title %></h1>
+by: <%= @post.user.username %> at <%= @post.created_at.strftime("%m:%M %p on %A, %b %e, %Y") %><br/>
 <%= @post.content %><br/>
+  <% @post.comments.each do |c| %>
+  <h3>Comments:</h3>
+  <h4><%= c.user.username %> said:</h4>
+  <%= c.content %>
+  <% end %>
