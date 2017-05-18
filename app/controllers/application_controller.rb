@@ -12,4 +12,11 @@ private
     !!session[:user_id]
   end
 
+  def authorize_user
+  if !logged_in?
+    flash[:notice] = "Ah ah ah, you didn't say the magice word!"
+    redirect_to login_path
+  end
+end
+
 end

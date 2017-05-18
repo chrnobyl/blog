@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: { registrations: "registrations"}
   resources :post_tags, only: [:create, :destroy]
   resources :tags, only: [:create, :destroy]
   resources :comments
@@ -8,6 +9,7 @@ Rails.application.routes.draw do
   root to: 'posts#index'
   get '/login', to: 'sessions#new', as: 'new_session'
   post '/login', to: 'sessions#create', as: 'login'
+  delete '/logout', to: 'sessions#destroy', as: 'logout'
 
   # get '/', to: 'posts#index'
 
