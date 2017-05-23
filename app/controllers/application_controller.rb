@@ -3,9 +3,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :logged_in?
 
 private
-
   def current_user
-    @current_user ||= User.find_by(session[:user_id])
+    @current_user ||= User.find(session[:user_id])
   end
 
   def authorize_user
@@ -18,5 +17,4 @@ private
   def logged_in?
     !!session[:user_id]
   end
-
 end
