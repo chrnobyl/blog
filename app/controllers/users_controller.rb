@@ -1,26 +1,24 @@
 class UsersController < ApplicationController
-
-  def index
-    @users = User.all
-  end
+  before_action :authorize_user, only: [:show]
 
   def new
     @user = User.new
   end
 
   def create
-    if params[:password] == params[:password_confirmation]
+    if params[:user][:password] == params[:user][:password_confirmation]
       @user = User.new(user_params)
-    else
-      flash[:notice] = "Please enter a valid name, password, and email"
-      redirect_to login_path
-    end
-    if !@user.nil?
+    if @user.valid? && User.count < 1
       @user.save
       session[:user_id] = @user.id
       redirect_to user_path(@user)
     else
-      redirect_to login_path
+      flash[:notice] = "Invalid credentials!, please try again"
+      redirect_to new_user_path
+    end
+    else
+      flash[:notice] = "Invalid credentials, please try again"
+      redirect_to new_user_path
     end
   end
 
@@ -30,21 +28,27 @@ class UsersController < ApplicationController
   end
 
   def edit
-
+    @user = User.find(params[:id])
   end
 
   def update
-
+    @user = User.find(params[:id])
+    if params[:user][:password] == params[:user][:password_confirmation] && params[:user][:password] != ""
+      @user.update(user_params)
+      redirect_to user_path(@user)
+    else
+      redirect_to edit_user_path(@user)
+    end
   end
 
   def destroy
-
+    @user.delete
   end
 
   private
 
-    def user_params
-      params.require(:user).permit(:username, :password, :email)
+  def user_params
+    params.require(:user).permit(:username, :password, :email)
+  end
 
-    end
 end

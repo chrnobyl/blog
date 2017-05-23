@@ -1,19 +1,19 @@
 class SessionsController < ApplicationController
   before_action :logged_in?, except: [:new, :create]
-  
-  def new
 
+  def new
   end
 
   def create
-    # byebug
     @user = User.find_by(username: params[:user][:username])
-    if !@user.nil? && @user.authenticate(params[:user][:password])
+    # byebug
+
+    if !@user.nil? &&  @user.authenticate(params[:user][:password])
       session[:user_id] = @user.id
       redirect_to user_path(@user)
     else
-      flash[:notice] = "Invalid credentials, please try again"
-      render :new
+      flash[:notice] = "We could not find your user name or password. Please try again."
+      redirect_to login_path
     end
   end
 
@@ -21,6 +21,5 @@ class SessionsController < ApplicationController
     session.clear
     redirect_to login_path
   end
-
 
 end
