@@ -1,8 +1,7 @@
 class SessionsController < ApplicationController
   before_action :logged_in?, except: [:new, :create]
-  
-  def new
 
+  def new
   end
 
   def create
@@ -21,6 +20,5 @@ class SessionsController < ApplicationController
     session.clear
     redirect_to login_path
   end
-
-
+  
 end

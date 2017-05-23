@@ -8,6 +8,13 @@ private
     @current_user ||= User.find_by(session[:user_id])
   end
 
+  def authorize_user
+    if !logged_in?
+      flash[:notice] = 'You are not allowed to do that unless you are logged in'
+      redirect_to login_path
+    end
+  end
+
   def logged_in?
     !!session[:user_id]
   end
