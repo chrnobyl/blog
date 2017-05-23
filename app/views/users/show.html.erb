@@ -1,3 +1,5 @@
+<%= flash[:notice] %>
+
 User: <%= @user.username %><br/>
 Email: <%= @user.email %><br/>
 Posts: <% @user.posts.each do |post| %>
@@ -5,4 +7,6 @@ Posts: <% @user.posts.each do |post| %>
 <%= post.content %><br/>
 <% end %>
 
-<%= link_to "Make a new post", new_post_path %>
+<br/>
+<%= link_to "Make a new post", new_post_path %><br/>
+<%= link_to "Edit Profile", edit_user_path %><br/>

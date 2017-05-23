@@ -10,10 +10,11 @@ class PostsController < ApplicationController
 
   def create
     # byebug
-    @post = Post.create(post_params)
+    @post = Post.new(post_params)
     @post.user_id = current_user.id
     if @post.valid?
-      redirect_to post_path(@post)
+      @post.save
+      redirect_to root_path
     else
       flash[:notice] = "Your post must have a title and content before publishing."
       render :new
