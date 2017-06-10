@@ -1,6 +1,4 @@
-<%= flash[:notice] %>
-
-User: <%= @user.username %><br/>
+About <%= @user.username %><br/>
 Email: <%= @user.email %><br/>
 Posts: <% @user.posts.each do |post| %>
 <%= post.title %><br/>
@@ -8,5 +6,7 @@ Posts: <% @user.posts.each do |post| %>
 <% end %>
 
 <br/>
-<%= link_to "Make a new post", new_post_path %><br/>
-<%= link_to "Edit Profile", edit_user_path %><br/>
+
+<% if logged_in? %>
+<%= link_to "Edit Profile", edit_user_path, class: 'btn btn-default btn-xs' %>
+<% end %>

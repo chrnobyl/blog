@@ -14,7 +14,7 @@ class PostsController < ApplicationController
     @post.user_id = current_user.id
     if @post.valid?
       @post.save
-      redirect_to root_path
+      redirect_to post_path(@post)
     else
       flash[:notice] = "Your post must have a title and content before publishing."
       render :new
@@ -27,8 +27,22 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    if @post.user.id != current_user.id
+     redirect_to root_path
+   end
   end
 
+  def update
+    @post = Post.find(params[:id])
+    @post.update(post_params)
+    redirect_to post_path(@post.id)
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.delete
+    redirect_to root_path
+  end
 
 
   private
@@ -36,4 +50,5 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:title, :content, :user_id)
   end
+  
 end

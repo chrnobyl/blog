@@ -1,8 +1,17 @@
-<h1><%= @post.title %></h1>
-by: <%= @post.user.username %> at <%= @post.created_at.strftime("%m:%M %p on %A, %b %e, %Y") %><br/>
+<h2><%= @post.title %></h2>
+<% time = @post.created_at %>
+<p>posted by <strong><%= @post.user.username %></strong> on <strong><%= time.strftime('%B %e, %Y ')%></strong> at <strong><%= time.strftime('%l:%M%P') %></strong></p>
+
 <%= @post.content %><br/>
-  <% @post.comments.each do |c| %>
+
+<% @post.comments.each do |c| %>
   <h3>Comments:</h3>
   <h4><%= c.user.username %> said:</h4>
   <%= c.content %>
-  <% end %>
+<% end %><br/>
+
+<% if logged_in? %>
+  <%= link_to "Edit post", edit_post_path(@post), class: 'btn btn-default btn-xs' %><br/><br/>
+  
+  <%= link_to "Delete post", post_path(@post), method: :delete, class: 'btn btn-danger btn-xs' %>
+<% end %>
