@@ -12,6 +12,6 @@
 
 <% if logged_in? %>
   <%= link_to "Edit post", edit_post_path(@post), class: 'btn btn-default btn-xs' %><br/><br/>
-  
+
   <%= link_to "Delete post", post_path(@post), method: :delete, class: 'btn btn-danger btn-xs' %>
 <% end %>

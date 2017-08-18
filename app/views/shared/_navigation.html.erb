@@ -1,14 +1,18 @@
 <nav class="navbar navbar-inverse bg-inverse" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/">it's a blog.</a>
+      <a class="navbar-brand" href="/">
+        <div class="text-left">
+          it's a blog.
+        </div>
+      </a>
       <a class="navbar-brand" href="/users/1">About</a>
       <% if logged_in? %>
 
         <div class="btn">
           <%= link_to "Make a new post", new_post_path, class: 'btn btn-default btn-s' %>
         </div>
-        
+
         <div class="btn">
           <%= link_to "Log out", logout_path, method: "DELETE", class: 'btn btn-danger btn-s' %>
         </div>
